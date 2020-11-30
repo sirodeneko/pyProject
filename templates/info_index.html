@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>info</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/element.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+</head>
+<body style="background-image: linear-gradient(white, lightslategray);">
+
+<div class="info-index-top">
+    <a href="/areaInfo/fetch">
+        <div class="info-index-top-fetch">
+            Fetch Data
+        </div>
+    </a>
+    <div class="info-index-top-text">
+        Fetch new data from the remote server(点击本按钮从服务器获取最新数据)
+    </div>
+</div>
+<div class="info-index-main">
+    <table>
+        <tr>
+            <th>No.<br>(序号)</th>
+            <th>Code<br>(编码)</th>
+            <th>Name<br>(景点名称)</th>
+            <th>Address<br>(景点地址)</th>
+            <th>Grade<br>(景点级别)</th>
+            <th>Service Time<br>(景点开放时间)</th>
+            <th>Max flows<br>(最大流量)</th>
+        </tr>
+        {% for item in data %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td class="cen">{{ item.code }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.address }}</td>
+                <td class="cen">{{ item.grade }}</td>
+                <td class="cen">{{ item.t_time }}</td>
+                <td class="cen">{{ item.max_num }}</td>
+            </tr>
+        {% empty %}
+            NO DATA
+        {% endfor %}
+    </table>
+</div>
+</body>
+
+</html>

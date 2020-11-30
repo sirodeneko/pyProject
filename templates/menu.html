@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>menu</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/element.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+</head>
+<body style="height:100%;">
+<div class="menu">
+    <div class="menu-list1">
+        <img src="/static/css/images/status.png">
+    </div>
+</div>
+</body>
+<script>
+    $(".menu-list1").on("click", function () {
+        window.parent.frames[2].location.href = "/areaInfo";
+    });
+</script>
+</html>

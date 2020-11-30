@@ -1,0 +1,95 @@
+body {
+    margin: 0px;
+    background-color: black;
+}
+
+image {
+    margin: 0px;
+    padding: 0px;
+}
+a,a:link,a:visited,a:hover,a:active{
+    text-decoration: none;
+    color:inherit;
+}
+.cen{
+    text-align: center;
+}
+.top {
+    background-image: url("/static/css/images/banner.png");
+    color: red;
+    font-size: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 78px;
+    line-height: 78px;
+    padding-left: 15px;
+}
+
+.menu {
+    background-color: black;
+    height: 100%;
+    width: 100px;
+}
+
+.menu-list1 {
+    margin: 0 auto;
+    width: 64px;
+    border-radius: 10px;
+}
+
+.menu-list1:hover {
+    box-shadow: 0 0 10px white;
+}
+
+.info-index-top {
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    background-color: #EDF8AC;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-bottom: 2px solid saddlebrown;
+    -moz-box-shadow: 0px 2px 5px #333333;
+    -webkit-box-shadow: 0px 2px 5px #333333;
+    box-shadow: 0px 2px 5px #333333;
+    box-sizing: border-box;
+}
+
+.info-index-top-fetch {
+    cursor: pointer;
+    height: 30px;
+    width: 130px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    margin-right: 5px;
+    border: 1px solid;
+    background-image: linear-gradient(to right, #6BB8E1, #B6D2E3);
+}
+
+.info-index-top-fetch:hover {
+    box-shadow: 0 0 10px white;
+}
+
+.info-index-main{
+    padding: 10px 15px 0 15px;
+
+}
+.info-index-main>table{
+    border-collapse:collapse;
+    width: 100%;
+}
+.info-index-main>table>tbody>tr>th{
+    background-color: #8A0100;
+    border:1px solid white;
+    color: #FFF3AD;
+}
+.info-index-main>table>tbody>tr>td{
+    background-color: #CBCBCB;
+    border-bottom:1px dashed black;
+}
+
+.info-index-main>table>tbody>tr:hover td{
+    background-color: #EFF900;
+}
