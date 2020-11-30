@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="13711cae-819f-4f8d-a92e-76f3ec5fcb68" name="默认更改列表" comment="" />
+    <list default="true" id="13711cae-819f-4f8d-a92e-76f3ec5fcb68" name="默认更改列表" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/multiChart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/singleChart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/web/entity/areaInfo/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/web/entity/areaInfo/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/web/page.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/web/page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/menu.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,7 +29,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1jjqGSqEnUte0IBsDGctjGxyasQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -28,6 +42,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last.edited.regexp" value="Sample Text" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/project/web" />
@@ -185,6 +200,7 @@
       <workItem from="1606300893590" duration="10140000" />
       <workItem from="1606360390088" duration="3391000" />
       <workItem from="1606645070618" duration="3680000" />
+      <workItem from="1606732604706" duration="1300000" />
     </task>
     <servers />
   </component>
@@ -252,10 +268,11 @@
       <screen x="0" y="0" width="1549" height="831" />
     </state>
     <state width="1367" height="232" key="GridCell.Tab.1.right/0.0.1549.831@0.0.1549.831" timestamp="1606313123946" />
-    <state x="461" y="151" key="SettingsEditor" timestamp="1605314660944">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="372" y="117" key="SettingsEditor" timestamp="1606732649846">
+      <screen x="0" y="0" width="1549" height="831" />
     </state>
     <state x="461" y="151" key="SettingsEditor/-1600.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1605314660944" />
+    <state x="372" y="117" key="SettingsEditor/0.0.1549.831@0.0.1549.831" timestamp="1606732649846" />
     <state x="644" y="251" width="632" height="538" key="find.popup" timestamp="1605351763177">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

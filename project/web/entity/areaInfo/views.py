@@ -65,3 +65,5 @@ def fetch(request):
     }
 
     return render(request, 'info_index.html', context)
+
+

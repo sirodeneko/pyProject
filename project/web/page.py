@@ -22,3 +22,11 @@ def menu(request):
 
 def default(request):
     return render(request, 'default.html')
+
+
+def multi_chart(request):
+    return render(request, 'multiChart.html')
+
+
+def single_chart(request):
+    return render(request, 'singleChart.html')
