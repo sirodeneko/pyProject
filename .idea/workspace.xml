@@ -144,10 +144,10 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.Dao" />
-      <item itemvalue="Python.business" />
-      <item itemvalue="Python.data" />
       <item itemvalue="Django server.project" />
+      <item itemvalue="Python.business" />
+      <item itemvalue="Python.Dao" />
+      <item itemvalue="Python.data" />
     </list>
     <recent_temporary>
       <list>
@@ -229,10 +229,10 @@
     </state>
     <state x="668" y="124" key="#project/-1600.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1604481069537" />
     <state x="539" y="99" key="#project/0.0.1549.831@0.0.1549.831" timestamp="1606128078671" />
-    <state x="555" y="20" key="CommitChangelistDialog2" timestamp="1606734835186">
+    <state x="555" y="20" key="CommitChangelistDialog2" timestamp="1606735166576">
       <screen x="0" y="0" width="1549" height="831" />
     </state>
-    <state x="555" y="20" key="CommitChangelistDialog2/0.0.1549.831@0.0.1549.831" timestamp="1606734835186" />
+    <state x="555" y="20" key="CommitChangelistDialog2/0.0.1549.831@0.0.1549.831" timestamp="1606735166576" />
     <state x="597" y="219" key="FileChooserDialogImpl" timestamp="1606127861225">
       <screen x="0" y="0" width="1549" height="831" />
     </state>
