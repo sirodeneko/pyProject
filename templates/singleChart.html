@@ -2,9 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>singleChart</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/element.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
 </head>
-<body>
+<body style="background-size:cover;background: linear-gradient(white, lightslategray) no-repeat fixed;">
+<div class="info-index-top">
+    Attraction：
+    <form>
+        {% csrf_token %}
+        <select class="my_select" name="code">
+            {% for item in name_list %}
+                <option value="{{ item.code }}">{{ item.name }}</option>
+            {% endfor %}
 
+        </select>
+        <button class="my_button single_index_top_search">
+            Search
+        </button>
+    </form>
+</div>
+<div class="info-index-main">
+    <div class="char_body">
+        <div id="main" style="width: 600px;height:400px;margin: 0 auto"></div>
+    </div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例',
+                x: "center",
+                subtext: "副标题",
+            },
+
+            tooltip: {},
+            legend: {
+                data: ['销量'],
+                y: "bottom",
+            },
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+                name: "time",
+                nameLocation: "middle",
+                nameGap: 20,
+            },
+            yAxis: {
+                name: "visitor flow",
+                position: "center",
+                nameLocation: "middle",
+                nameGap: 20,
+
+            },
+            series: [{
+                name: '销量',
+                type: 'line',
+                data: [5, 20, 36, 10, 10, 20],
+                lineStyle: {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                },
+                markLine: {
+                    silent: false,
+                    precision: 2,
+                    label: {
+                        show: true,
+                        position: "top",
+                        margin: 8
+                    },
+                    lineStyle: {
+                        show: true,
+                        width: 1,
+                        opacity: 0.5,
+                        curveness: 0,
+                        type: "dashed",
+                        color: "#FF0000"
+                    },
+                    data: [
+                        {
+                            name: "最小",
+                            type: "min"
+                        },
+                        {
+                            name: "最小",
+                            type: "max"
+                        }
+                    ]
+                },
+            }],
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</div>
 </body>
 </html>

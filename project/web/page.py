@@ -6,6 +6,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+from project.web.entity.areaInfo import views
 
 
 def index(request):
@@ -29,4 +30,8 @@ def multi_chart(request):
 
 
 def single_chart(request):
-    return render(request, 'singleChart.html')
+    context = {
+        'name_list': views.get_area_list(),
+        'i': 0,
+    }
+    return render(request, 'singleChart.html', context)

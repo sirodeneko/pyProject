@@ -67,3 +67,17 @@ def fetch(request):
     return render(request, 'info_index.html', context)
 
 
+def get_area_list():
+    versions = models.Versions.objects.last()
+    area_infos = models.AreaInfo.objects.filter(v_id=versions).order_by("-max_num")
+    return area_infos
+
+
+def get_single_chart(request):
+    t_code = request.GET.get('code', default='-1')
+    area_infos = models.AreaInfo.objects.filter(code=t_code).reverse().all()[:7]
+    context = {
+        'name_list': get_area_list(),
+        'i': 0,
+    }
+    return render(request, 'singleChart.html', context)

@@ -3,17 +3,27 @@ body {
     background-color: black;
 }
 
+button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
 image {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
-a,a:link,a:visited,a:hover,a:active{
+
+a, a:link, a:visited, a:hover, a:active {
     text-decoration: none;
-    color:inherit;
+    color: inherit;
 }
-.cen{
+
+.cen {
     text-align: center;
 }
+
 .top {
     background-image: url("/static/css/images/banner.png");
     color: red;
@@ -23,6 +33,26 @@ a,a:link,a:visited,a:hover,a:active{
     height: 78px;
     line-height: 78px;
     padding-left: 15px;
+}
+
+.my_button {
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+    margin-right: 5px;
+    box-shadow: 0 -1px 0 #616a74 inset, 0 1px 5px #212528;
+    background-image: linear-gradient(to right, #6BB8E1, #B6D2E3);
+}
+
+.my_button:hover {
+    background-image: linear-gradient(to right, #22B1FC, #6BB7E5);
+}
+
+.my_select {
+    background-color: #FFD700;
+    width: 150px;
+    height: 22px;
+    border-radius: 3px;
 }
 
 .menu {
@@ -57,39 +87,46 @@ a,a:link,a:visited,a:hover,a:active{
 }
 
 .info-index-top-fetch {
-    cursor: pointer;
     height: 30px;
     width: 130px;
     line-height: 30px;
-    text-align: center;
-    border-radius: 10px;
-    margin-right: 5px;
-    border: 1px solid;
-    background-image: linear-gradient(to right, #6BB8E1, #B6D2E3);
 }
 
-.info-index-top-fetch:hover {
-    box-shadow: 0 0 10px white;
-}
 
-.info-index-main{
+.info-index-main {
     padding: 10px 15px 0 15px;
 
 }
-.info-index-main>table{
-    border-collapse:collapse;
+
+.info-index-main > table {
+    border-collapse: collapse;
     width: 100%;
 }
-.info-index-main>table>tbody>tr>th{
+
+.info-index-main > table > tbody > tr > th {
     background-color: #8A0100;
-    border:1px solid white;
+    border: 1px solid white;
     color: #FFF3AD;
 }
-.info-index-main>table>tbody>tr>td{
+
+.info-index-main > table > tbody > tr > td {
     background-color: #CBCBCB;
-    border-bottom:1px dashed black;
+    border-bottom: 1px dashed black;
 }
 
-.info-index-main>table>tbody>tr:hover td{
+.info-index-main > table > tbody > tr:hover td {
     background-color: #EFF900;
+}
+
+/*singleChart*/
+.single_index_top_search {
+    height: 25px;
+    width: 60px;
+    line-height: 25px;
+}
+.char_body{
+    margin: 0 auto;
+    min-width: 450px;
+    height: 450px;
+    /*background-color: #6BB7E5;*/
 }
