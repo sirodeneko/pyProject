@@ -26,12 +26,15 @@ def default(request):
 
 
 def multi_chart(request):
-    return render(request, 'multiChart.html')
+    context = {
+        'name_list': views.get_area_list(),
+        'i': 0,
+    }
+    return render(request, 'multiChart.html', context)
 
 
 def single_chart(request):
     context = {
         'name_list': views.get_area_list(),
-        'i': 0,
     }
     return render(request, 'singleChart.html', context)

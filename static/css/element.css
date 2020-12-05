@@ -130,3 +130,29 @@ a, a:link, a:visited, a:hover, a:active {
     height: 450px;
     /*background-color: #6BB7E5;*/
 }
+
+/*multiChart*/
+.multi-index-top{
+    background-color: white;
+}
+.multi-index-main{
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.multi-index-l{
+    float: left;
+    height: 100%;
+    width: 300px;
+    overflow-y: scroll;
+    background-size:cover;
+    background: linear-gradient(white, lightslategray) no-repeat fixed;
+}
+.multi-index-r{
+    float: right;
+    width: calc(100% - 300px);
+    height: 100%;
+    background-color: #F0F8FF;
+}

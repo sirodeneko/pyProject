@@ -10,7 +10,7 @@
 <body style="background-size:cover;background: linear-gradient(white, lightslategray) no-repeat fixed;">
 <div class="info-index-top">
     Attraction：
-    <form>
+    <form action="/singleChart/getData">
         {% csrf_token %}
         <select class="my_select" name="code">
             {% for item in name_list %}
@@ -25,7 +25,7 @@
 </div>
 <div class="info-index-main">
     <div class="char_body">
-        <div id="main" style="width: 600px;height:400px;margin: 0 auto"></div>
+        <div id="main" style="width: 800px;height:500px;margin: 0 auto"></div>
     </div>
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
@@ -34,39 +34,59 @@
         // 指定图表的配置项和数据
         var option = {
             title: {
-                text: 'ECharts 入门示例',
+                text: '{{ tName }}',
                 x: "center",
-                subtext: "副标题",
+                subtext: "data per hour",
             },
 
             tooltip: {},
             legend: {
-                data: ['销量'],
+                data: ['visitor flow'],
                 y: "bottom",
             },
             xAxis: {
-                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+                data: [
+                    {% for item in tTime %}
+                        {% if forloop.first %}
+                            '{{ item }}'
+                        {% else %}
+                            ,'{{ item }}'
+                        {% endif %}
+                    {% endfor %}
+                ],
                 name: "time",
                 nameLocation: "middle",
                 nameGap: 20,
+                splitLine: {
+                    show: false,
+                },
             },
             yAxis: {
                 name: "visitor flow",
                 position: "center",
                 nameLocation: "middle",
-                nameGap: 20,
-
+                nameGap: 40,
+                splitLine: {
+                    show: false,
+                },
             },
             series: [{
-                name: '销量',
+                name: 'visitor flow',
                 type: 'line',
-                data: [5, 20, 36, 10, 10, 20],
-                lineStyle: {
-                    "show": true,
-                    "width": 1,
-                    "opacity": 1,
-                    "curveness": 0,
-                    "type": "solid"
+                data: [
+                    {% for item in data %}
+                        {% if forloop.first %}
+                            '{{ item.num }}'
+                        {% else %}
+                            ,'{{ item.num }}'
+                        {% endif %}
+                    {% endfor %}
+                ],
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
                 },
                 markLine: {
                     silent: false,

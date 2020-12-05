@@ -5,17 +5,118 @@
     <title>multiChart</title>
     <link type="text/css" rel="stylesheet" href="/static/css/element.css">
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
 </head>
-<body >
-<div class="info-index-top">
-    <a href="/areaInfo/fetch">
-        <div class=" my_button">
-            Fetch Data
-        </div>
-    </a>
-    <div class="info-index-top-text">
-        Fetch new data from the remote server(点击本按钮从服务器获取最新数据)
+<body style="background-color: #F0F8FF">
+<form action="/multiChart/getData">
+    <div class="info-index-top multi-index-top">
+        Attraction：
+        {% csrf_token %}
+        Select the attractions before click the button to compare&nbsp;&nbsp;
+        <button class="my_button single_index_top_search">
+            compare
+        </button>
     </div>
-</div>
+    <div class="multi-index-main">
+        <div class="multi-index-l">
+            {% for item in name_list %}
+                <div>
+                    <label>
+                        <input type="checkbox" name="code" value="{{ item.code }}"
+                                {% if item.code in code_list %} checked {% endif %}>
+                        {{ item.name }}
+                    </label>
+                </div>
+            {% endfor %}
+
+        </div>
+        <div class="multi-index-r">
+            <div class="char_body">
+                <div id="main" style="width: 100%;height:500px;margin: 0 auto"></div>
+            </div>
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: 'Multi-attraction Data Comparison',
+                        x: "center",
+                        subtext: "data per hour",
+                    },
+
+                    tooltip: {},
+                    legend: {
+                        data: [
+                            {% for item in t_name_list %}
+                                {% if forloop.first %}
+                                    '{{ item }}'
+                                {% else %}
+                                    ,'{{ item }}'
+                                {% endif %}
+                            {% endfor %}
+                        ],
+                        y: "bottom",
+                    },
+                    xAxis: {
+                        data: [
+                            {% for item in tTime %}
+                                {% if forloop.first %}
+                                    '{{ item }}'
+                                {% else %}
+                                    ,'{{ item }}'
+                                {% endif %}
+                            {% endfor %}
+                        ],
+                        name: "time",
+                        nameLocation: "middle",
+                        nameGap: 20,
+                        boundaryGap: false,
+                        splitLine: {
+                            show: false,
+                        },
+                    },
+                    yAxis: {
+                        name: "visitor flow",
+                        position: "center",
+                        nameLocation: "middle",
+                        nameGap: 40,
+                        splitLine: {
+                            show: false,
+                        },
+                    },
+                    series: [
+                        {% for item in data %}
+                            {
+                                name: '{{ item.first.name }}',
+                                type: 'line',
+                                data: [
+                                    {% for i in item %}
+                                        {% if forloop.first %}
+                                            '{{ i.num }}'
+                                        {% else %}
+                                            ,'{{ i.num }}'
+                                        {% endif %}
+                                    {% endfor %}
+                                ],
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        position: 'top'
+                                    }
+                                },
+                                areaStyle: {},
+                            },
+                        {% endfor %}
+                    ],
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            </script>
+        </div>
+    </div>
+</form>
 </body>
 </html>

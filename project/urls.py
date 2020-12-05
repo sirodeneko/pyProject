@@ -26,8 +26,9 @@ urlpatterns = [
     url(r'default/', page.default),
     url(r'areaInfo/fetch', views.fetch),
     url(r'areaInfo/', views.index),
-    url(r'singleChart/getData',views.get_single_chart),
+    url(r'singleChart/getData', views.get_single_chart),
     url(r'singleChart/', page.single_chart),
+    url(r'multiChart/getData', views.get_multi_chart),
     url(r'multiChart/', page.multi_chart),
 
 ]
