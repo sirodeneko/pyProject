@@ -42,13 +42,18 @@
                 var option = {
                     title: {
                         text: 'Multi-attraction Data Comparison',
+                        // 标题居中
                         x: "center",
                         subtext: "data per hour",
                     },
-
+                    // 显示提示框
                     tooltip: {},
+                    
+                    // 图例配置
                     legend: {
+                        // 一个就是一个图例，必须和series.name 一一对应
                         data: [
+
                             {% for item in t_name_list %}
                                 {% if forloop.first %}
                                     '{{ item }}'
@@ -57,6 +62,7 @@
                                 {% endif %}
                             {% endfor %}
                         ],
+                        // 显示在底部
                         y: "bottom",
                     },
                     xAxis: {
@@ -70,9 +76,13 @@
                             {% endfor %}
                         ],
                         name: "time",
+                        // 位置居中
                         nameLocation: "middle",
+                        // 距离坐标轴的距离
                         nameGap: 20,
+                        // 从起点到终点，true的话两边会留白
                         boundaryGap: false,
+                        // 不显示网格线
                         splitLine: {
                             show: false,
                         },
@@ -87,6 +97,7 @@
                         },
                     },
                     series: [
+                        // 一个对象就是一条统计线
                         {% for item in data %}
                             {
                                 name: '{{ item.first.name }}',
@@ -100,12 +111,14 @@
                                         {% endif %}
                                     {% endfor %}
                                 ],
+                                // 显示每一个点的值在点的上方
                                 label: {
                                     normal: {
                                         show: true,
                                         position: 'top'
                                     }
                                 },
+                                // 显示阴影
                                 areaStyle: {},
                             },
                         {% endfor %}

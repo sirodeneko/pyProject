@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>docxReport</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/element.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+</head>
+<body style="background-color:#EDF8AC; ">
+<form action="/docxReport/newReport">
+    <div class="info-index-top docx-index-top">
+        <label>
+            Name of Report:&nbsp;&nbsp;
+            <input type="text" class="my_input" placeholder="Enter the report name here" name="name">
+        </label>
+        <button class="my_button">Click here to create a report</button>
+        {% if show_box %}
+            <a class="my_button" href="/docxReport/download?fileName={{ docx_src }}">Click here to download</a>
+        {% endif %}
+    </div>
+    <div class="docx-index-main">
+        {% for item in name_list %}
+            <div class="docx-main-little">
+                <label>
+                    <input type="checkbox" name="code" value="{{ item.code }}">
+                    {{ item.name }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+</form>
+
+</body>
+</html>

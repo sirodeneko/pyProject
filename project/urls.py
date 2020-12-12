@@ -30,5 +30,8 @@ urlpatterns = [
     url(r'singleChart/', page.single_chart),
     url(r'multiChart/getData', views.get_multi_chart),
     url(r'multiChart/', page.multi_chart),
+    url(r'docxReport/newReport', views.new_docx_report),
+    url(r'docxReport/download', views.download_docx_report),
+    url(r'docxReport/', page.docx_report),
 
 ]

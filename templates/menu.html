@@ -17,6 +17,9 @@
     <div class="menu-list1" id="list3">
         <img src="/static/css/images/compare.png">
     </div>
+    <div class="menu-list1" id="list4">
+        <img src="/static/css/images/report.png">
+    </div>
 </div>
 </body>
 <script>
@@ -28,6 +31,9 @@
     });
     $("#list3").on("click", function () {
         window.parent.frames[2].location.href = "/multiChart";
+    });
+    $("#list4").on("click", function () {
+        window.parent.frames[2].location.href = "/docxReport";
     });
 </script>
 </html>

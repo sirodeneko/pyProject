@@ -1,7 +1,7 @@
 from datetime import timezone, timedelta
 
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
 import numpy as np
 import os
@@ -10,8 +10,18 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
+from django.utils.http import urlquote
+from docx.text.paragraph import Paragraph
+from docx.styles import style
+from docx import Document
+from docx.document import Document as Doc
+from docx.shared import Pt, RGBColor, Inches
+from docx.oxml.ns import qn
+from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+
 from project.web.entity.areaInfo import models
-from project.web.utils import updata
+from project.web.utils import updata, create_image
 
 
 def index(request):
@@ -136,6 +146,121 @@ def get_multi_chart(request):
         't_name_list': t_name_list,
         'data': areas_infos,
         'tTime': vt_list,
-        'i': 0,
     }
     return render(request, 'multiChart.html', context)
+
+
+def new_docx_report(request):
+    # 拿到参数列表
+    t_code = request.GET.getlist('code', default=[])
+    t_name = request.GET.get('name', default='-1')
+    if t_code is [] or t_name is "":
+        context = {
+            'name_list': get_area_list(),
+            'show_box': False,
+        }
+        return render(request, 'docxReport.html', context)
+
+    v_list = models.Versions.objects.order_by("-id").all()[:7]
+    vv_list = []
+    vt_list = []
+    for item in v_list:
+        vv_list.append(item.id)
+        vt_list.append((item.v_time + timedelta(hours=8)).strftime("%m-%d %H"))
+    vt_list.reverse()
+    areas_infos = []
+    for i_code in t_code:
+        areas_infos.append(models.AreaInfo.objects.filter(v_id__in=vv_list, code=i_code).all())
+
+    document: Doc = Document()
+    document.add_heading(t_name, 1)
+    document.add_heading(text='Attractions', level=2)
+    paragragh1 = document.add_paragraph()
+    text1 = paragragh1.add_run('Attraction Name List')
+    text1.font.size = Pt(11)
+    text1.font.name = u'微软雅黑'
+    paragragh1.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+    table = document.add_table(rows=len(areas_infos) + 1, cols=7)
+    table.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    table.style = 'Light List Accent 2'
+    table.cell(0, 0).text = 'No.'
+    table.cell(0, 1).text = 'Code'
+    table.cell(0, 2).text = 'Name'
+    table.cell(0, 3).text = 'Address'
+    table.cell(0, 4).text = 'Grade'
+    table.cell(0, 5).text = 'Business\nHours'
+    table.cell(0, 6).text = 'Recent\nFlow'
+    for row_index in range(len(areas_infos)):
+        table.cell(row_index + 1, 0).text = str(row_index + 1)
+        table.cell(row_index + 1, 1).text = areas_infos[row_index].first().code
+        table.cell(row_index + 1, 2).text = areas_infos[row_index].first().name
+        table.cell(row_index + 1, 3).text = areas_infos[row_index].first().address
+        table.cell(row_index + 1, 4).text = areas_infos[row_index].first().grade
+        table.cell(row_index + 1, 5).text = areas_infos[row_index].first().t_time
+        table.cell(row_index + 1, 6).text = str(areas_infos[row_index].first().num)
+    for row_index in range(len(areas_infos) + 1):
+        for col_index in range(7):
+            cell = table.cell(row_index, col_index)
+            cell_para = cell.paragraphs[0]
+            cell_para.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+            cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
+
+    document.add_heading(text='Chart with single data', level=2)
+
+    for item in areas_infos:
+        paragragh = document.add_paragraph()
+        text = paragragh.add_run('Visitor flow chart of {0}'.format(item.first().name))
+        text.font.size = Pt(11)
+        text.font.name = u'微软雅黑'
+        paragragh.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        url = create_image.create_single(vt_list, item)
+        paragragh = document.add_paragraph()
+        paragragh.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        text = paragragh.add_run()
+        text.add_picture(image_path_or_stream=url, width=Inches(6.252))
+
+    url=create_image.create_multi(vt_list, areas_infos)
+    document.add_heading(text='Multi-attraction data comparison', level=2)
+    paragragh = document.add_paragraph()
+    text = paragragh.add_run('Chart with mutiple spot data')
+    text.font.size = Pt(11)
+    text.font.name = u'微软雅黑'
+    paragragh.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    paragragh = document.add_paragraph()
+    paragragh.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    text = paragragh.add_run()
+    text.add_picture(image_path_or_stream=url, width=Inches(6.252))
+
+    file_name = './project/web/temp/' + t_name + '.docx'
+    document.save(file_name)
+    context = {
+        'name_list': get_area_list(),
+        'show_box': True,
+        'docx_src': t_name,
+    }
+    return render(request, 'docxReport.html', context)
+
+
+def read_file(file_name, chunk_size=512):
+    with open(file_name, "rb") as f:
+        while True:
+            c = f.read(chunk_size)
+            if c:
+                yield c
+            else:
+                break
+
+
+def download_docx_report(request):
+    t_name = request.GET.get('fileName', default='-1')
+    if t_name is '-1':
+        return 404
+
+    file_path = './project/web/temp/' + t_name + '.docx'
+    response = StreamingHttpResponse(read_file(file_path))
+    response["Content-Type"] = "application/octet-stream"
+    response["Content-Disposition"] = 'attachment; filename={0}.docx'.format(urlquote(t_name))
+    response["Access-Control-Expose-Headers"] = "Content-Disposition"  # 为了使前端获取到Content-Disposition属性
+
+    return response

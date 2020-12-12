@@ -38,3 +38,11 @@ def single_chart(request):
         'name_list': views.get_area_list(),
     }
     return render(request, 'singleChart.html', context)
+
+
+def docx_report(request):
+    context = {
+        'name_list': views.get_area_list(),
+        'show_box': False,
+    }
+    return render(request, 'docxReport.html', context)
