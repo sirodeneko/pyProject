@@ -192,3 +192,12 @@ a, a:link, a:visited, a:hover, a:active {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/*email*/
+.loading_img{
+    width: 25px;
+    height: 25px;
+    background-image: url("/static/css/images/Loading.gif");
+    background-size: cover;
+    display: none;
+}

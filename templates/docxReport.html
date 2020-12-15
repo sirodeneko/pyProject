@@ -14,7 +14,8 @@
             Name of Report:&nbsp;&nbsp;
             <input type="text" class="my_input" placeholder="Enter the report name here" name="name">
         </label>
-        <button class="my_button">Click here to create a report</button>
+        <button class="my_button" id="create_report">Click here to create a report</button>
+        <div class="loading_img"></div>
         {% if show_box %}
             <a class="my_button" href="/docxReport/download?fileName={{ docx_src }}">Click here to download</a>
         {% endif %}
@@ -30,6 +31,10 @@
         {% endfor %}
     </div>
 </form>
-
+<script>
+    $('#create_report').on("click", function () {
+        $(".loading_img").show();
+    });
+</script>
 </body>
 </html>

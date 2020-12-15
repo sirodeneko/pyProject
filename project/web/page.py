@@ -7,6 +7,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from project.web.entity.areaInfo import views
+from project.web.utils import docx_files
 
 
 def index(request):
@@ -46,3 +47,10 @@ def docx_report(request):
         'show_box': False,
     }
     return render(request, 'docxReport.html', context)
+
+
+def email(request):
+    context = {
+        'name_list': docx_files.docx_files_names(),
+    }
+    return render(request, 'emailIndex.html', context)

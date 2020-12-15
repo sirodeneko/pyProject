@@ -1,14 +1,9 @@
-from datetime import timezone, timedelta
+import json
+from datetime import timedelta
 
 from django.db import transaction
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
-import numpy as np
-import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
 
 from django.utils.http import urlquote
 from docx.text.paragraph import Paragraph
@@ -21,7 +16,7 @@ from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
 from project.web.entity.areaInfo import models
-from project.web.utils import updata, create_image
+from project.web.utils import updata, create_image, email
 
 
 def index(request):
@@ -70,7 +65,7 @@ def fetch(request):
 
     # 查询数据
     area_infos = models.AreaInfo.objects.filter(v_id=version).order_by("-max_num")
-
+    # models.Versions.delete(version)
     context = {
         'data': area_infos,
         'i': 0,
@@ -220,7 +215,7 @@ def new_docx_report(request):
         text = paragragh.add_run()
         text.add_picture(image_path_or_stream=url, width=Inches(6.252))
 
-    url=create_image.create_multi(vt_list, areas_infos)
+    url = create_image.create_multi(vt_list, areas_infos)
     document.add_heading(text='Multi-attraction data comparison', level=2)
     paragragh = document.add_paragraph()
     text = paragragh.add_run('Chart with mutiple spot data')
@@ -232,7 +227,7 @@ def new_docx_report(request):
     text = paragragh.add_run()
     text.add_picture(image_path_or_stream=url, width=Inches(6.252))
 
-    file_name = './project/web/temp/' + t_name + '.docx'
+    file_name = './static/reports/' + t_name + '.docx'
     document.save(file_name)
     context = {
         'name_list': get_area_list(),
@@ -257,10 +252,23 @@ def download_docx_report(request):
     if t_name is '-1':
         return 404
 
-    file_path = './project/web/temp/' + t_name + '.docx'
+    file_path = './static/reports/' + t_name + '.docx'
     response = StreamingHttpResponse(read_file(file_path))
     response["Content-Type"] = "application/octet-stream"
     response["Content-Disposition"] = 'attachment; filename={0}.docx'.format(urlquote(t_name))
     response["Access-Control-Expose-Headers"] = "Content-Disposition"  # 为了使前端获取到Content-Disposition属性
 
+    return response
+
+
+def send_email(request):
+    email_names = request.POST['name']
+    file_names = request.POST.getlist('code')
+    names = email_names.split(';')
+    try:
+        email.send(names, file_names)
+        resp = {"code": 200, "msg": "发送完毕"}
+    except:
+        resp = {"code": 500, "msg": "发送失败"}
+    response = HttpResponse(json.dumps(resp), content_type="application/json")
     return response

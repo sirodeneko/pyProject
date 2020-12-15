@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'docxReport/newReport', views.new_docx_report),
     url(r'docxReport/download', views.download_docx_report),
     url(r'docxReport/', page.docx_report),
-
+    url(r'emailIndex/sendEmail', views.send_email),
+    url(r'emailIndex/', page.email),
 ]

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>emailIndex</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/element.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+</head>
+<body style="background-color:#EDF8AC; ">
+<form action="/docxReport/newReport" id="emailForm">
+    {% csrf_token %}
+    <div class="info-index-top docx-index-top">
+        <label>
+            email address (多个地址使用;间隔):&nbsp;&nbsp;
+            <input type="text" class="my_input" placeholder="input email address(es) you want to send your reports to" name="name">
+        </label>
+        <div class="my_button" id="send_button">send email</div>
+        <div class="loading_img"></div>
+        <div class="text"></div>
+    </div>
+    <div class="docx-index-main">
+        {% for item in name_list %}
+            <div class="docx-main-little">
+                <label>
+                    <input type="checkbox" name="code" value="{{ item}}">
+                    {{ item}}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+</form>
+<script>
+    $('#send_button').on("click", function () {
+        $(".loading_img").show();
+        $.ajax({
+            url:'/emailIndex/sendEmail',
+            type:'POST',
+            data:$('#emailForm').serialize(),
+            success: function () {
+                $(".loading_img").hide();
+                $(".text").text("Email has been sent.");
+            }
+        })
+    });
+</script>
+</body>
+</html>

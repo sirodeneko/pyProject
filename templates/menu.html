@@ -20,6 +20,9 @@
     <div class="menu-list1" id="list4">
         <img src="/static/css/images/report.png">
     </div>
+    <div class="menu-list1" id="list5">
+        <img src="/static/css/images/email.png">
+    </div>
 </div>
 </body>
 <script>
@@ -34,6 +37,9 @@
     });
     $("#list4").on("click", function () {
         window.parent.frames[2].location.href = "/docxReport";
+    });
+    $("#list5").on("click", function () {
+        window.parent.frames[2].location.href = "/emailIndex";
     });
 </script>
 </html>
