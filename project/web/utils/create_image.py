@@ -1,9 +1,11 @@
+import os
 import random
 
 from pyecharts.charts import Bar, Line
 from pyecharts import options as opts
 
 # 导入输出图片工具
+from pyecharts.globals import CurrentConfig
 from pyecharts.render import make_snapshot
 # 使用snapshot-selenium 渲染图片
 from snapshot_selenium import snapshot
@@ -28,6 +30,7 @@ def random_color():
 
 
 def create_single(t_time, areas_info):
+    CurrentConfig.ONLINE_HOST = os.getcwd()+"\\static\\js\\"
     html_name = './project/web/temp/' + generate_random_str(random_length=10) + '.html'
     png_name = './project/web/temp/' + generate_random_str(random_length=10) + '.png'
     line = Line()
@@ -66,6 +69,7 @@ def create_single(t_time, areas_info):
 
 
 def create_multi(t_time, areas_infos):
+    CurrentConfig.ONLINE_HOST = os.getcwd()+"\\static\\js\\"
     html_name = './project/web/temp/' + generate_random_str(random_length=10) + '.html'
     png_name = './project/web/temp/' + generate_random_str(random_length=10) + '.png'
     line = Line()
